@@ -14,9 +14,7 @@ def caesar_cypher (raw_string, heat)
 		end 
 		med_array << med
 	end
-
 	@well_done = med_array.pack("C*")
-
 end
 
 puts "Enter text:"
