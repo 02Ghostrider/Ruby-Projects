@@ -53,4 +53,5 @@ puts @hashorama
 puts "Enter text:"
 some_text = gets.chomp
 substrings(some_text, dictionary)
+puts "The phrase '"+some_text+"' evaluates to:"
 puts @hashorama
