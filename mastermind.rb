@@ -120,7 +120,7 @@ class Mastermind
 		get_code
 		until game_ends
 			ai_guess
-			puts "\nHmmm, let my electrons bounce this around...\n"
+			puts "\nHmmm, let me bounce my electrons around on this...\n"
 			eval_guess
 			display
 			sleep(2)
