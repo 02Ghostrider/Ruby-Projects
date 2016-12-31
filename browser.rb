@@ -16,6 +16,7 @@ if content.code == "200"
   puts content.message
   puts content.body                  
 else                                
-  puts "#{content.code} #{content.message}"
-  puts "#{content.body}"
+  puts content.code
+  puts content.message
+  puts content.body
 end
