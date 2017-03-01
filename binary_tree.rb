@@ -48,7 +48,7 @@ class BinTree < Node
 			if node.rightChild == nil
 				node.rightChild = Node.new(value, node)
 			else
-				make_branch(value, node.leftChild)
+				make_branch(value, node.rightChild)
 			end
 		end
 	end
@@ -56,7 +56,7 @@ class BinTree < Node
 	#Returns the node of the search value using 'breadth first search'
 	#returns nil if search value is not found
 	def bfs(val)
-		queue = Array.new.push(@root)
+		queue = [@root]
 		until queue.empty? 		
 			current = queue.shift
 			if current.value == val
@@ -76,29 +76,48 @@ class BinTree < Node
 	#returns nil if search value is not found
 	#uses Inorder search, LDR
 	def dfs(val)
-		stack = Array.new.push(@root)
+		stack = [@root]
 		current = @root
-		until current.leftChild == nil
-			stack << current.leftChild
+		checked = []
+		while stack.length > 0
+			until current.leftChild == nil || checked.include?(current.leftChild)
+				stack << current.leftChild
+				current = current.leftChild
+			end
+			check = stack.pop
+			if check.value == val
+				return check
+			elsif check.rightChild != nil
+				stack << check.rightChild
+			end
+			checked << check
+			current = stack.last unless stack.length == 0
 		end
-		until stack.length == 0
-			current = stack.pop
-			if current.value == val
-				return current
-			end
-			until current.rightChild == nil
-				stack << current.rightChild
-			end
-			
-
-
+		nil
 	end
 
-	#depth first search with recursion
-	def dfs_rec(val)
-
+	#Depth first search with recursion
+	#returns nil if search value is not found
+	def dfs_rec(val, current = @root)
+		if current.value == val
+			return current
+		end
+		if current.leftChild != nil
+			find = dfs_rec(val, current.leftChild)
+			return find unless find.nil?
+		end
+		if current.rightChild != nil
+			find = dfs_rec(val, current.rightChild)
+			return find unless find.nil?
+		end
+		nil
 	end
 
 end
 
+dataSet = [14, 3, 4, 13, 12, 16, 11, 7, 8, 1, 9, 6, 2, 5, 15, 10]
+tree = BinTree.new(dataSet)
+puts tree.bfs(3)
+puts tree.dfs(3)
+puts tree.dfs_rec(3)
 
